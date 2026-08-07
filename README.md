@@ -94,3 +94,34 @@ src/components/pilot/            인트로 · 문항 · 결과 컴포넌트
 src/data/                        문항 풀, 전공 목록, 직업 매핑 등
 src/utils/                       전공 추천 · 직무 추천 · RIASEC 계산
 ```
+
+---
+
+## 단디 — 개인정보 업무 AI 도우미 프로토타입
+
+NAVER PRIVACY CHALLENGE 2026 제안서(송리버 팀)의 발표용 프로토타입입니다.
+네이버폼에 얹힌 얇은 레이어라는 설정으로, 개인정보를 **정리 → 목적별 최소정보 공유 → 마감**
+세 단계로 처리하는 흐름을 여섯 화면으로 보여줍니다.
+
+```bash
+npm run dev      # http://localhost:5180/dandi.html
+```
+
+설문 앱(`index.html`)과 별개의 진입점이라 서로 영향을 주지 않습니다.
+
+```
+dandi.html                       프로토타입 진입점 (나눔고딕 웹폰트 로드)
+src/dandi/DandiApp.tsx           셸 — GNB · 스텝 네비 · 화면 전환
+src/dandi/data.ts                목업 응답 143건 · 목적별 최소정보 플레이북 · 마감 체크리스트
+src/dandi/ui.tsx                 네이버 스타일 프리미티브 (색·버튼·카드·칩·표)
+src/dandi/Step0Intro.tsx         문제 장면 — 민지 씨 4단계 + 통계
+src/dandi/Step1Setup.tsx         화면 1 · 프로젝트 설정 (제안서 14p)
+src/dandi/Step2Build.tsx         화면 2 · 업무용 자료 생성 (14p)
+src/dandi/Step3Share.tsx         화면 3 · 안전한 공유 (15p)
+src/dandi/Step4Close.tsx         화면 4 · 프로젝트 마감 (15p)
+src/dandi/Step5Done.tsx          마무리 — 기존 경로 vs 단디 비교
+```
+
+발표 시 좌측 스텝 네비로 임의의 화면에 바로 갈 수 있습니다.
+데이터는 전부 목업이며 실제 개인정보는 들어 있지 않습니다.
+나눔고딕은 Google Fonts에서 받아오므로 **오프라인 발표라면 폰트를 미리 캐시**하세요.

@@ -45,6 +45,12 @@ function saveResponses(): Plugin {
 
 export default defineConfig({
   plugins: [react(), saveResponses()],
+  // 설문 앱(index.html)과 단디 프로토타입(dandi.html) 두 진입점.
+  build: {
+    rollupOptions: {
+      input: { main: "index.html", dandi: "dandi.html" },
+    },
+  },
   server: {
     port: 5180,
     open: true,
