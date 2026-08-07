@@ -1,0 +1,31 @@
+{
+  "name": "hsmatching-lecture",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "전공 진로 적합도 검사 - 강의용 데모 (랜딩 + 검사 + 결과 프로파일)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "framer-motion": "^11.2.6",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.10.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.10"
+  }
+}
