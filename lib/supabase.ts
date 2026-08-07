@@ -1,11 +1,12 @@
 /**
- * 강의용 데모 스텁 (Supabase 대체)
+ * KUHPA 검사 결과 저장
  *
- * 원본 프로젝트(hsmatching)의 lib/supabase.ts 중 검사 플로우가 실제로 사용하는
- * 두 함수만 동일한 시그니처로 재현합니다. 네트워크 호출은 전혀 하지 않으며,
- * 결과는 브라우저 localStorage에만 남깁니다.
- *
- * → 인터넷 연결이나 API 키 없이도 검사가 끝까지 동작합니다.
+ * 배포하지 않는 로컬 전용 도구다. 저장 경로는 두 겹:
+ *   1. localStorage — 항상 시도 (브라우저별로 격리되지만 마지막 백업)
+ *   2. POST /api/save — `npm run dev`일 때만 vite.config.ts 미들웨어가 받아
+ *      responses/*.json 으로 저장한다. `npm run build`/`preview`에는 미들웨어가
+ *      없어 404가 나지만, fetch는 그걸로 reject하지 않으므로 검사는 멈추지 않는다.
+ * 저장이 실패해도 검사 자체가 멈추면 안 된다 — 그래서 이 함수는 절대 throw하지 않는다.
  */
 
 const DEMO_STORAGE_KEY = 'demo_pilot_results';
@@ -13,11 +14,10 @@ const DEMO_STORAGE_KEY = 'demo_pilot_results';
 export interface DemoPilotRecord {
   code: string;
   savedAt: string;
-  rawAnswers: any;
   options?: Record<string, any>;
 }
 
-/** 저장된 데모 결과 전체를 반환 (강의 중 "데이터가 이렇게 쌓입니다" 시연용) */
+/** 저장된 결과 전체를 반환 (콘솔에서 확인용) */
 export function getDemoPilotResults(): DemoPilotRecord[] {
   try {
     const raw = localStorage.getItem(DEMO_STORAGE_KEY);
@@ -27,41 +27,24 @@ export function getDemoPilotResults(): DemoPilotRecord[] {
   }
 }
 
-/** 저장된 데모 결과 전체 삭제 */
+/** 저장된 결과 전체 삭제 (조 편성 완료 후 폐기용) */
 export function clearDemoPilotResults(): void {
   localStorage.removeItem(DEMO_STORAGE_KEY);
 }
 
-/**
- * 원본: Supabase pilot_results 테이블에 INSERT
- * 데모: localStorage에 append + 콘솔 출력
- */
 export async function savePilotResult(
   code: string,
-  rawAnswers: any,
   options?: {
     name?: string;
     studentId?: string;
-    email?: string;
-    phone?: string;
-    valueScores?: any;
-    careerDecision?: any;
-    selfEfficacy?: any;
-    preferences?: any;
-    deviceInfo?: any;
     riasecScores?: any;
     riasecAnswers?: any;
-    skippedSupplementary?: boolean;
-    department?: string;
-    major?: string;
-    source?: string;
-    durationSeconds?: number;
+    interestedFields?: string[];
   }
 ): Promise<void> {
   const record: DemoPilotRecord = {
     code,
     savedAt: new Date().toISOString(),
-    rawAnswers,
     options,
   };
 
@@ -70,15 +53,24 @@ export async function savePilotResult(
     all.push(record);
     localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(all));
   } catch (e) {
-    // localStorage 용량 초과 등 — 데모에서는 저장 실패가 검사를 막지 않아야 함
-    console.warn('[demo] localStorage 저장 실패 (무시하고 계속 진행):', e);
+    console.warn('[save] localStorage 저장 실패 (무시하고 계속 진행):', e);
   }
 
-  console.group('[강의용 데모] 검사 결과 저장 (실제 DB 전송 없음)');
-  console.log('결과 코드:', code);
-  console.log('RIASEC 점수:', options?.riasecScores);
-  console.log('전체 레코드:', record);
-  console.groupEnd();
+  let body: string;
+  try {
+    body = JSON.stringify(record);
+  } catch (e) {
+    console.warn('[save] 결과 직렬화 실패 (무시하고 계속 진행):', e);
+    return;
+  }
+
+  await fetch('/api/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body,
+  }).catch((e) => console.warn('[save] 서버(dev) 저장 실패 — npm run dev가 아니면 정상입니다:', e));
+
+  console.log('[KUHPA] 검사 결과 저장 완료. 결과 코드:', code);
 }
 
 /**

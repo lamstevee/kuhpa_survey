@@ -1,5 +1,6 @@
-// RIASEC 유형 데이터 - Holland 이론 기반
+// 논문 리딩 세션 팀역할 6유형 데이터
 // 공유 데이터 파일: PilotIntro, RiasecResult, RiasecTypeModal에서 사용
+// 내부 코드 R/I/A/S/E/C는 그대로 유지하고 의미만 학회 맥락으로 재해석했다.
 
 export type RiasecCode = 'R' | 'I' | 'A' | 'S' | 'E' | 'C';
 
@@ -12,244 +13,88 @@ export interface RiasecTypeData {
   description: string;
   coreTraits: string[];
   workPreferences: string[];
-  idealEnvironments: string[];
-  representativeCareers: string[];
+  idealEnvironments: string[]; // 잘 맞는 논문 유형
+  representativeCareers: string[]; // 함께 있으면 좋은 조원 역할
 }
 
 export const RIASEC_DATA: Record<RiasecCode, RiasecTypeData> = {
   R: {
     code: 'R',
-    name: '현실형',
-    fullName: 'Realistic',
+    name: '연결가',
+    fullName: 'Bridger',
     color: '#DC6B4A',
-    emoji: '🔧',
+    emoji: '🌉',
     description:
-      '현실형(Realistic)은 구체적이고 실용적인 활동을 선호하는 유형입니다. 손으로 직접 만들고 조작하는 것을 좋아하며, 기계나 도구를 다루는 데 능숙합니다. 추상적인 이론보다는 실제로 눈에 보이는 결과물을 만들어내는 것에서 성취감을 느낍니다. 체계적이고 명확한 업무를 선호하며, 야외 활동이나 신체 활동을 즐기는 경향이 있습니다.',
-    coreTraits: [
-      '실용적이고 현실적인 사고',
-      '손재주가 뛰어남',
-      '기계나 도구 조작 능력',
-      '신체적 활동 선호',
-      '구체적인 문제 해결 능력',
-    ],
-    workPreferences: [
-      '명확한 목표와 결과물이 있는 업무',
-      '도구나 장비를 활용하는 작업',
-      '야외 또는 현장에서의 활동',
-      '체계적이고 질서 있는 환경',
-      '독립적으로 수행할 수 있는 과제',
-    ],
-    idealEnvironments: [
-      '제조 현장, 연구실, 건설 현장',
-      '자연 환경과 연계된 작업 공간',
-      '실습 중심의 학습 환경',
-      '기술적 도전이 있는 환경',
-    ],
-    representativeCareers: [
-      '기계공학자',
-      '건축가',
-      '전기기사',
-      '농업 전문가',
-      '운동선수',
-      '요리사',
-      '항공 정비사',
-      '소방관',
-    ],
+      '연결가는 논문의 결론을 실제 의료 현장과 정책에 연결해 생각하는 역할입니다. 이론적인 논의보다 "그래서 이게 우리 현실에 어떤 의미인가"를 항상 궁리하며, 실무적 함의와 적용 가능성을 찾는 데 강합니다.',
+    coreTraits: ['실무 감각', '현장 적용에 대한 관심', '정책·제도와의 연결고리 파악', '구체적인 예시로 설명하는 힘'],
+    workPreferences: ['논문의 정책적·실무적 함의 정리', '현장 사례와 비교하기', '발표에서 "그래서 어떻게 쓰이는가" 파트'],
+    idealEnvironments: ['정책 평가 연구', '사례 기반·현장 개입 연구'],
+    representativeCareers: ['조율가', '분석가'],
   },
   I: {
     code: 'I',
-    name: '탐구형',
-    fullName: 'Investigative',
+    name: '분석가',
+    fullName: 'Analyst',
     color: '#4A6FA5',
-    emoji: '🔬',
+    emoji: '📊',
     description:
-      '탐구형(Investigative)은 지적 호기심이 강하고 분석적인 사고를 즐기는 유형입니다. 복잡한 문제를 연구하고 해결하는 과정에서 큰 만족을 느끼며, 독립적으로 사고하고 탐구하는 것을 선호합니다. 과학적 방법론을 활용하여 현상을 이해하고 설명하는 데 관심이 많으며, 지식을 깊이 있게 탐구하는 학문적 활동에 적합합니다.',
-    coreTraits: [
-      '강한 지적 호기심',
-      '분석적, 논리적 사고',
-      '독립적인 문제 해결',
-      '관찰력과 통찰력',
-      '추상적 개념에 대한 이해력',
-    ],
-    workPreferences: [
-      '복잡한 문제를 분석하고 해결하는 업무',
-      '연구와 실험을 수행하는 과제',
-      '새로운 지식과 이론을 탐구하는 활동',
-      '독립적으로 수행할 수 있는 프로젝트',
-      '데이터 기반의 의사결정',
-    ],
-    idealEnvironments: [
-      '연구소, 대학, 실험실',
-      '자율적인 연구 환경',
-      '지적 토론이 활발한 조직',
-      '최신 기술과 정보에 접근 가능한 환경',
-    ],
-    representativeCareers: [
-      '과학자',
-      '연구원',
-      '의사',
-      '데이터 분석가',
-      '교수',
-      '소프트웨어 개발자',
-      '심리학자',
-      '약사',
-    ],
+      '분석가는 논문의 통계와 연구방법론을 꼼꼼히 검토하는 역할입니다. 표본, 회귀분석 결과, 신뢰구간을 직접 따라가며 결론이 데이터로 실제로 지지되는지를 확인하는 데서 만족을 느낍니다.',
+    coreTraits: ['통계·수치에 대한 감각', '꼼꼼한 검토', '논리적 사고', '데이터로 판단하는 습관'],
+    workPreferences: ['회귀분석·통계 결과 해석', '연구방법론 검토', '데이터 재확인'],
+    idealEnvironments: ['정량 분석 중심 논문', '역학·통계 연구'],
+    representativeCareers: ['비평가', '이론가'],
   },
   A: {
     code: 'A',
-    name: '예술형',
-    fullName: 'Artistic',
+    name: '이론가',
+    fullName: 'Theorist',
     color: '#9B7CB8',
-    emoji: '🎨',
+    emoji: '📚',
     description:
-      '예술형(Artistic)은 창의성과 자기표현을 중시하는 유형입니다. 독창적인 아이디어를 구현하고 예술적 감각을 발휘하는 활동을 즐깁니다. 규칙과 관습에 얽매이지 않는 자유로운 환경을 선호하며, 상상력과 직관을 활용하여 새로운 것을 만들어내는 데 열정을 가지고 있습니다. 미적 감각이 뛰어나고 감정 표현에 민감합니다.',
-    coreTraits: [
-      '뛰어난 창의성과 상상력',
-      '독창적인 아이디어 발상',
-      '미적 감각과 예술적 재능',
-      '감정 표현 능력',
-      '비순응적, 자유로운 사고',
-    ],
-    workPreferences: [
-      '창작과 디자인이 포함된 업무',
-      '자유롭고 유연한 업무 환경',
-      '자기표현이 가능한 프로젝트',
-      '새로운 아이디어를 시도할 수 있는 기회',
-      '예술적 가치를 인정받는 활동',
-    ],
-    idealEnvironments: [
-      '디자인 스튜디오, 갤러리, 공연장',
-      '창의적 자유가 보장된 환경',
-      '다양한 예술가들과의 협업 공간',
-      '영감을 주는 문화적 환경',
-    ],
-    representativeCareers: [
-      '그래픽 디자이너',
-      '작가',
-      '음악가',
-      '영화감독',
-      '건축 디자이너',
-      '사진작가',
-      '패션 디자이너',
-      'UX 디자이너',
-    ],
+      '이론가는 논문이 어떤 개념적 틀과 선행연구 위에 서 있는지 정리하는 역할입니다. 새로운 개념을 만나면 기존 이론과의 연결고리를 찾고, 큰 맥락 속에서 논문을 위치시키는 데 강합니다.',
+    coreTraits: ['개념 정리 능력', '선행연구 맥락화', '큰 그림을 보는 시야', '이론적 배경 설명력'],
+    workPreferences: ['이론적 배경과 맥락 정리', '개념 간 연결고리 찾기', '프레임워크 설명'],
+    idealEnvironments: ['이론 중심 논문', '개념적 프레임워크를 제시하는 연구'],
+    representativeCareers: ['정리가', '분석가'],
   },
   S: {
     code: 'S',
-    name: '사회형',
-    fullName: 'Social',
+    name: '조율가',
+    fullName: 'Facilitator',
     color: '#5B9A8B',
     emoji: '🤝',
     description:
-      '사회형(Social)은 타인과의 관계를 중시하고 도움을 주는 것에서 보람을 느끼는 유형입니다. 다른 사람들을 가르치고, 치료하고, 상담하는 활동을 선호합니다. 뛰어난 대인관계 능력을 가지고 있으며, 협력적인 환경에서 팀원들과 함께 일하는 것을 즐깁니다. 공감 능력이 높고 사회적 책임감이 강합니다.',
-    coreTraits: [
-      '높은 공감 능력',
-      '뛰어난 대인관계 기술',
-      '타인을 돕고자 하는 의지',
-      '협력적 태도',
-      '사회적 책임감',
-    ],
-    workPreferences: [
-      '사람들과 직접 소통하는 업무',
-      '가르치고 멘토링하는 활동',
-      '상담 및 지원 서비스',
-      '팀 협업이 중요한 프로젝트',
-      '사회적 가치를 창출하는 일',
-    ],
-    idealEnvironments: [
-      '학교, 병원, 상담센터',
-      '팀워크가 강조되는 조직',
-      '사람 중심의 서비스 환경',
-      '커뮤니티 활동이 활발한 환경',
-    ],
-    representativeCareers: [
-      '교사',
-      '사회복지사',
-      '상담사',
-      '간호사',
-      'HR 전문가',
-      '심리치료사',
-      '물리치료사',
-      '사회운동가',
-    ],
+      '조율가는 세션의 흐름을 만들고 조원들의 의견을 통합하는 역할입니다. 의견이 충돌할 때 양쪽 논지를 정리해 합의점을 찾고, 누구나 편하게 말할 수 있는 분위기를 만드는 데 강합니다.',
+    coreTraits: ['진행·통합 능력', '경청', '갈등 조정', '편안한 분위기 조성'],
+    workPreferences: ['발표 순서·역할 조율', '토론 진행', '의견 통합'],
+    idealEnvironments: ['다양한 해석이 가능한 논문', '토론이 활발히 필요한 주제'],
+    representativeCareers: ['연결가', '비평가'],
   },
   E: {
     code: 'E',
-    name: '진취형',
-    fullName: 'Enterprising',
+    name: '비평가',
+    fullName: 'Critic',
     color: '#E8B86D',
-    emoji: '📈',
+    emoji: '🔍',
     description:
-      '진취형(Enterprising)은 리더십을 발휘하고 목표를 달성하는 것에 열정을 가진 유형입니다. 다른 사람들을 설득하고 이끄는 능력이 뛰어나며, 경쟁적인 환경에서 도전을 즐깁니다. 새로운 사업 기회를 발굴하고 조직을 이끌어 성과를 창출하는 데 관심이 많습니다. 야심적이고 에너지가 넘치며, 영향력을 행사하는 것을 좋아합니다.',
-    coreTraits: [
-      '강한 리더십',
-      '설득력과 협상 능력',
-      '목표 지향적 성향',
-      '경쟁심과 야망',
-      '위험 감수 성향',
-    ],
-    workPreferences: [
-      '리더 역할을 맡을 수 있는 업무',
-      '영업 및 마케팅 활동',
-      '의사결정권이 있는 포지션',
-      '성과 기반의 보상 체계',
-      '새로운 사업 기회 개발',
-    ],
-    idealEnvironments: [
-      '기업 경영진, 영업 조직',
-      '스타트업, 벤처기업',
-      '경쟁이 치열한 비즈니스 환경',
-      '네트워킹이 활발한 환경',
-    ],
-    representativeCareers: [
-      '경영자/CEO',
-      '기업가/창업자',
-      '마케팅 매니저',
-      '영업 관리자',
-      '정치인',
-      '부동산 중개인',
-      '이벤트 기획자',
-      '변호사',
-    ],
+      '비평가는 논문의 한계와 허점을 짚어내는 역할입니다. 저자의 결론을 그대로 받아들이지 않고, 인과관계 주장이 설계로 정당화되는지, 논리적 허점은 없는지 의심하고 반론을 제기합니다.',
+    coreTraits: ['비판적 사고', '허점을 짚는 감각', '근거를 따지는 습관', '반론 제기 능력'],
+    workPreferences: ['한계점·타당성 지적', '반론 준비', '토론에서 질문 던지기'],
+    idealEnvironments: ['인과관계를 강하게 주장하는 논문', '논쟁적인 주제'],
+    representativeCareers: ['조율가', '정리가'],
   },
   C: {
     code: 'C',
-    name: '관습형',
-    fullName: 'Conventional',
+    name: '정리가',
+    fullName: 'Organizer',
     color: '#7C8798',
     emoji: '📋',
     description:
-      '관습형(Conventional)은 체계적이고 정확한 업무 수행을 선호하는 유형입니다. 규칙과 절차를 따르며, 데이터와 정보를 정리하고 관리하는 데 능숙합니다. 세부 사항에 주의를 기울이며, 질서 있고 예측 가능한 환경에서 효율적으로 일합니다. 숫자와 기록을 다루는 업무에 강점이 있으며, 안정적인 조직 구조를 선호합니다.',
-    coreTraits: [
-      '꼼꼼하고 정확한 업무 처리',
-      '체계적인 사고와 조직력',
-      '세부 사항에 대한 주의력',
-      '규칙과 절차 준수',
-      '효율성 추구',
-    ],
-    workPreferences: [
-      '명확한 지침이 있는 업무',
-      '데이터 정리 및 관리',
-      '재무 및 회계 관련 업무',
-      '문서 작업 및 기록 관리',
-      '안정적이고 예측 가능한 업무 환경',
-    ],
-    idealEnvironments: [
-      '금융기관, 회계법인, 공공기관',
-      '체계적인 업무 프로세스가 있는 조직',
-      '안정적인 조직 문화',
-      '명확한 역할 분담이 있는 환경',
-    ],
-    representativeCareers: [
-      '회계사',
-      '세무사',
-      '행정관리자',
-      '은행원',
-      '법무사',
-      '비서',
-      '데이터 입력 전문가',
-      '품질관리사',
-    ],
+      '정리가는 논의된 내용을 요약하고 문서로 남기는 역할입니다. 핵심 내용을 깔끔하게 정리하고 표와 자료를 구조화해, 세션이 끝난 뒤에도 남은 사람들이 쉽게 되짚어볼 수 있게 만듭니다.',
+    coreTraits: ['요약·문서화 능력', '꼼꼼함', '구조화하는 습관', '가독성 있는 정리'],
+    workPreferences: ['핵심 요약 슬라이드 제작', '논의 내용 기록', '표·자료 구조화'],
+    idealEnvironments: ['정보량이 많은 논문', '여러 논문을 비교하는 세션'],
+    representativeCareers: ['이론가', '비평가'],
   },
 };
 
@@ -260,35 +105,3 @@ export const RIASEC_TYPES = Object.values(RIASEC_DATA).map(({ code, name, color,
   color,
   emoji,
 }));
-
-// 유형별 라벨 정보 (RiasecResult에서 사용)
-export const RIASEC_LABELS: Record<
-  RiasecCode,
-  {
-    name: string;
-    fullName: string;
-    color: string;
-    description: string;
-    careers: string[];
-  }
-> = Object.fromEntries(
-  Object.entries(RIASEC_DATA).map(([code, data]) => [
-    code,
-    {
-      name: data.name,
-      fullName: data.fullName,
-      color: data.color,
-      description: data.description,
-      careers: data.representativeCareers.slice(0, 5),
-    },
-  ])
-) as Record<
-  RiasecCode,
-  {
-    name: string;
-    fullName: string;
-    color: string;
-    description: string;
-    careers: string[];
-  }
->;

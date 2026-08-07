@@ -111,9 +111,9 @@ export default function RiasecQuestion({
                     {questionNumber} / {totalQuestions}
                   </span>
                   <div className="hidden lg:flex items-center gap-2 text-xs" style={{ color: COLORS.muted }}>
-                    <span>RIASEC</span>
+                    <span>KUHPA</span>
                     <span>·</span>
-                    <span>전공 진로 적합도 검사</span>
+                    <span>신입 학회원 적성·흥미 검사</span>
                   </div>
                 </div>
               </motion.div>
@@ -273,7 +273,7 @@ export default function RiasecQuestion({
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
-                    계열 선택 돌아가기
+                    관심분야 선택 돌아가기
                   </button>
                 )}
                 <p className="text-xs" style={{ color: COLORS.muted }}>
@@ -313,7 +313,7 @@ export default function RiasecQuestion({
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-                계열 선택 돌아가기
+                관심분야 선택 돌아가기
               </button>
             )}
             <p className="text-xs" style={{ color: COLORS.muted }}>

@@ -1,13 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ClusterType } from '../../data/questionPool';
-import { CollegeName } from '../../data/departmentCollegeMap';
 
 interface InterestSelectProps {
   selectedClusters: ClusterType[];
   onSelectCluster: (cluster: ClusterType) => void;
   onNext: () => void;
-  userCollege?: CollegeName | null;  // SSO 사용자 소속 단과대학
 }
 
 const COLORS = {
@@ -26,55 +24,37 @@ const COLORS = {
 
 const CLUSTERS = [
   {
-    type: '인문' as ClusterType,
-    description: '언어, 문학, 역사, 철학 등 인간과 문화를 탐구합니다',
+    type: '정책학' as ClusterType,
+    description: '보건의료 제도·규제·정책 결정 과정을 다룹니다',
   },
   {
-    type: '사회' as ClusterType,
-    description: '행정, 정치, 법, 사회복지 등 사회 구조를 이해합니다',
+    type: '경영학' as ClusterType,
+    description: '병원 운영, 조직, 전략을 다룹니다',
   },
   {
-    type: '경상' as ClusterType,
-    description: '경영, 경제, 회계, 무역 등 비즈니스를 배웁니다',
+    type: '경제학' as ClusterType,
+    description: '의료비, 재정, 비용효과 분석을 다룹니다',
   },
   {
-    type: '공학' as ClusterType,
-    description: '기계, 전자, 건축, 화학공학 등 기술을 개발합니다',
+    type: '역학' as ClusterType,
+    description: '질병 분포, 인과추론, 연구설계를 다룹니다',
   },
   {
-    type: '자연' as ClusterType,
-    description: '수학, 물리, 화학, 생물 등 자연 현상을 탐구합니다',
+    type: '공중보건학' as ClusterType,
+    description: '예방, 건강증진, 인구집단 건강을 다룹니다',
   },
   {
-    type: '예체능' as ClusterType,
-    description: '디자인, 음악, 체육, 영화 등 예술과 신체를 표현합니다',
-  },
-  {
-    type: '융합' as ClusterType,
-    description: 'AI, 소프트웨어, 데이터사이언스 등 미래 기술을 융합합니다',
+    type: '국제보건학' as ClusterType,
+    description: '글로벌 헬스, 국제기구, 개발협력을 다룹니다',
   },
 ];
-
-// 단과대학별 허용되는 계열 매핑
-const COLLEGE_CLUSTER_MAP: Record<string, ClusterType[]> = {
-  '예술체육대학': ['예체능'],
-  '융합대학': ['사회', '경상', '예체능', '융합'],
-};
 
 export default function InterestSelect({
   selectedClusters,
   onSelectCluster,
   onNext,
-  userCollege,
 }: InterestSelectProps) {
-  // 사용자 단과대학에 따라 필터링된 계열 목록
-  const filteredClusters = useMemo(() => {
-    if (userCollege && COLLEGE_CLUSTER_MAP[userCollege]) {
-      const allowedTypes = COLLEGE_CLUSTER_MAP[userCollege];
-      return CLUSTERS.filter(c => allowedTypes.includes(c.type));
-    }
-    return CLUSTERS;
-  }, [userCollege]);
+  const filteredClusters = CLUSTERS;
 
   const isSelected = (cluster: ClusterType) => selectedClusters.includes(cluster);
   const isMaxSelected = selectedClusters.length >= 3;
@@ -89,9 +69,6 @@ export default function InterestSelect({
       onSelectCluster(cluster);
     }
   };
-
-  // 제한된 계열만 표시되는 경우 안내 메시지
-  const isRestricted = userCollege && COLLEGE_CLUSTER_MAP[userCollege];
 
   return (
     <div
@@ -110,32 +87,14 @@ export default function InterestSelect({
             className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
             style={{ color: COLORS.primary }}
           >
-            관심 있는 계열을 선택해 주세요
+            관심 있는 학술분야를 선택해 주세요
           </h1>
           <p
             className="text-base lg:text-lg mb-4"
             style={{ color: COLORS.text.secondary }}
           >
-            {filteredClusters.length === 1
-              ? '아래 계열을 선택하고 진행해 주세요'
-              : `최대 ${Math.min(3, filteredClusters.length)}개까지 선택할 수 있습니다`}
+            최대 3개까지 선택할 수 있습니다
           </p>
-
-          {/* 제한 안내 */}
-          {isRestricted && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-block px-4 py-2 rounded-lg text-sm mb-4"
-              style={{
-                backgroundColor: '#FEF3C7',
-                color: '#92400E',
-                border: '1px solid #FDE68A',
-              }}
-            >
-              📍 {userCollege} 소속 학생은 본인 단과대학 관련 계열만 선택 가능합니다
-            </motion.div>
-          )}
 
           <div
             className="inline-block px-4 py-2 rounded-full text-sm font-semibold"
@@ -261,7 +220,7 @@ export default function InterestSelect({
                 : '#CBD5E1',
             }}
           >
-            선택한 계열의 전공 살펴보기
+            검사 시작하기
           </motion.button>
 
           {!canProceed && (
@@ -271,7 +230,7 @@ export default function InterestSelect({
               className="text-sm mt-4"
               style={{ color: COLORS.muted }}
             >
-              최소 1개 이상의 계열을 선택해 주세요
+              최소 1개 이상의 분야를 선택해 주세요
             </motion.p>
           )}
         </motion.div>

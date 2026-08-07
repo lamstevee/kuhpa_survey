@@ -183,7 +183,7 @@ export default function RiasecTypeModal({ typeCode, isOpen, onClose }: RiasecTyp
                 </Section>
 
                 {/* Ideal Environments */}
-                <Section title="적합 환경" color={typeData.color}>
+                <Section title="잘 맞는 논문 유형" color={typeData.color}>
                   <div className="flex flex-wrap gap-2">
                     {typeData.idealEnvironments.map((env, idx) => (
                       <span
@@ -201,7 +201,7 @@ export default function RiasecTypeModal({ typeCode, isOpen, onClose }: RiasecTyp
                 </Section>
 
                 {/* Representative Careers */}
-                <Section title="대표 직업" color={typeData.color}>
+                <Section title="함께하면 좋은 조합" color={typeData.color}>
                   <div className="grid grid-cols-2 gap-2">
                     {typeData.representativeCareers.map((career, idx) => (
                       <div

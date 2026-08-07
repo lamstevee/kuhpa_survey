@@ -1,9 +1,9 @@
 {
-  "name": "hsmatching-lecture",
+  "name": "kuhpa-survey",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "전공 진로 적합도 검사 - 강의용 데모 (랜딩 + 검사 + 결과 프로파일)",
+  "description": "고려대학교 보건의료경영학회(KUHPA) 신입 학회원 적성·흥미 검사 (로컬 전용)",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,8 +12,6 @@
   },
   "dependencies": {
     "framer-motion": "^11.2.6",
-    "html2canvas": "^1.4.1",
-    "jspdf": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^2.10.3"
