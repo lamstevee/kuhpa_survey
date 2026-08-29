@@ -51,14 +51,27 @@ Expo Go로는 **안 됩니다.** 백그라운드 지오펜스는 네이티브 �
 Expo 계정(무료)만 있으면 됩니다. 빌드는 Expo 서버에서 돌고, 끝나면 APK 다운로드 링크와
 QR 코드가 나옵니다. 폰에서 그 QR을 찍어 바로 설치하면 됩니다.
 
+**EAS(Expo Application Services)** 는 Expo가 운영하는 클라우드 빌드 서버입니다.
+원래 안드로이드 앱을 만들려면 내 컴퓨터에 Android Studio + JDK + Android SDK(10GB 넘습니다)를
+깔아야 하는데, EAS는 그 과정을 Expo 서버에서 대신 돌리고 완성된 APK 링크만 돌려줍니다.
+내 컴퓨터엔 Node.js만 있으면 됩니다.
+
 ```bash
+npm install -g eas-cli   # 최초 1회. CLI 설치
+
 cd bus-alert
 npm install
 
-npx eas login          # 계정이 없으면 expo.dev 에서 가입
-npx eas init           # 프로젝트를 EAS에 연결 (최초 1회)
-npx eas build --platform android --profile preview
+eas login                # expo.dev 계정 (무료)
+eas init                 # 프로젝트를 EAS에 연결 (최초 1회, app.json에 projectId가 추가됨)
+eas build --platform android --profile preview
 ```
+
+> 전역 설치가 싫으면 `npx eas-cli@latest login` 처럼 쓰면 됩니다.
+> `npx eas` 는 이름이 비슷한 **다른 패키지**를 받아오니 쓰지 마세요.
+
+`eas build`를 처음 돌리면 **"Generate a new Android Keystore?"** 를 묻습니다. **Yes** 하세요.
+앱 서명키를 EAS가 만들어서 보관해줍니다 — 직접 관리할 게 없습니다.
 
 `preview` 프로필은 `eas.json`에서 `buildType: "apk"` 로 잡혀 있습니다.
 이걸 안 지정하면 EAS가 Play 스토어용 `.aab`를 만들어서 폰에 직접 설치가 안 됩니다.
@@ -108,7 +121,7 @@ APK는 안드로이드 전용입니다. iOS는 애플 정책상 사이드로드�
 **애플 개발자 계정**이 필요합니다.
 
 ```bash
-npx eas build --platform ios --profile preview   # 개발자 계정 로그인 필요
+eas build --platform ios --profile preview   # 개발자 계정 로그인 필요
 # 또는 맥 + Xcode 환경에서
 npx expo run:ios --device
 ```
