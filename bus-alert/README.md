@@ -41,26 +41,84 @@ Expo(React Native) 앱이라 iOS · Android 둘 다 돌아갑니다.
 > 대신 기기가 잠겨 있어도 백그라운드에서 읽을 수 있어야 해서 암호화 저장소는 쓰지 않았습니다.
 > 이 키는 조회 전용 무료 키입니다.
 
-## 실행
+## 내 폰에 설치하기
 
 Expo Go로는 **안 됩니다.** 백그라운드 지오펜스는 네이티브 권한이 필요해서
-개발 빌드(development build)를 만들어야 합니다.
+직접 빌드한 APK를 설치해야 합니다.
+
+### 방법 A — EAS 클라우드 빌드 (안드로이드 스튜디오 없이, 권장)
+
+Expo 계정(무료)만 있으면 됩니다. 빌드는 Expo 서버에서 돌고, 끝나면 APK 다운로드 링크와
+QR 코드가 나옵니다. 폰에서 그 QR을 찍어 바로 설치하면 됩니다.
 
 ```bash
 cd bus-alert
 npm install
 
-# 안드로이드 기기/에뮬레이터를 USB로 연결한 상태에서
-npx expo run:android
-
-# 맥 + Xcode 환경이면
-npx expo run:ios
+npx eas login          # 계정이 없으면 expo.dev 에서 가입
+npx eas init           # 프로젝트를 EAS에 연결 (최초 1회)
+npx eas build --platform android --profile preview
 ```
 
-또는 EAS로 클라우드 빌드:
+`preview` 프로필은 `eas.json`에서 `buildType: "apk"` 로 잡혀 있습니다.
+이걸 안 지정하면 EAS가 Play 스토어용 `.aab`를 만들어서 폰에 직접 설치가 안 됩니다.
+
+빌드는 보통 10~20분 걸리고, 끝나면 터미널과 [expo.dev](https://expo.dev) 대시보드 양쪽에
+APK 링크가 남습니다.
+
+### 방법 B — 내 컴퓨터에서 APK 뽑기 (계정 없이)
+
+JDK 17과 Android SDK가 깔려 있어야 합니다 (안드로이드 스튜디오를 설치하면 같이 깔립니다).
 
 ```bash
-npx eas build --profile development --platform android
+cd bus-alert
+npm install
+
+npx expo prebuild --platform android --clean
+cd android
+./gradlew assembleRelease
+```
+
+APK 위치:
+
+```
+bus-alert/android/app/build/outputs/apk/release/app-release.apk
+```
+
+이 파일을 폰으로 옮겨서 설치하면 됩니다. 서명은 디버그 키로 되지만
+사이드로드 설치에는 문제 없습니다 (Play 스토어에 올릴 게 아니라면 충분합니다).
+
+USB로 연결돼 있으면 바로 밀어넣어도 됩니다:
+
+```bash
+adb install -r app/build/outputs/apk/release/app-release.apk
+```
+
+### 설치할 때
+
+- 처음 APK를 여는 앱(파일 관리자·크롬 등)에 **"출처를 알 수 없는 앱 설치"** 권한을 한 번 허용해야 합니다.
+- 설치 후 앱을 열면 설정 화면이 바로 뜹니다. 아래 "처음 켰을 때 설정 순서"를 따라가세요.
+- 위치 권한은 반드시 **'항상 허용'** 으로 주세요. '앱 사용 중에만'이면 알림이 안 옵니다.
+- 안드로이드 배터리 최적화가 백그라운드 깨우기를 막는 경우가 있습니다.
+  설정 → 앱 → 버스 알림 → 배터리 → **제한 없음**으로 바꿔주세요.
+
+### 아이폰이라면
+
+APK는 안드로이드 전용입니다. iOS는 애플 정책상 사이드로드가 안 되고, 실기기에 올리려면
+**애플 개발자 계정**이 필요합니다.
+
+```bash
+npx eas build --platform ios --profile preview   # 개발자 계정 로그인 필요
+# 또는 맥 + Xcode 환경에서
+npx expo run:ios --device
+```
+
+무료 애플 계정으로 Xcode에서 직접 설치하는 것도 되지만, 7일마다 다시 설치해야 합니다.
+
+### 코드 고치면서 개발할 때
+
+```bash
+npx expo run:android    # 기기/에뮬레이터 연결 상태에서, 코드 수정이 바로 반영됨
 ```
 
 검증용:
