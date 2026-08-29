@@ -94,3 +94,10 @@ src/components/pilot/            인트로 · 문항 · 결과 컴포넌트
 src/data/                        문항 풀, 전공 목록, 직업 매핑 등
 src/utils/                       전공 추천 · 직무 추천 · RIASEC 계산
 ```
+
+---
+
+## 이 저장소의 다른 앱
+
+- [`bus-alert/`](./bus-alert) — 정류장에 도착하면 버스 도착시간을 알림으로 보내주는
+  Expo(React Native) 모바일 앱. 설문 데모와는 별개 프로젝트입니다.

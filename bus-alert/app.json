@@ -1,0 +1,62 @@
+{
+  "expo": {
+    "name": "버스 알림",
+    "slug": "bus-alert",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "busalert",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0E1116",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.busalert.app",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSExceptionDomains": {
+            "ws.bus.go.kr": {
+              "NSExceptionAllowsInsecureHTTPLoads": true,
+              "NSIncludesSubdomains": true
+            }
+          }
+        }
+      }
+    },
+    "android": {
+      "package": "com.busalert.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0E1116",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "정류장 근처인지 확인해 버스 도착 알림을 보냅니다.",
+          "locationAlwaysAndWhenInUsePermission": "앱을 켜지 않아도 정류장에 도착하면 버스 도착 알림을 보내려면 '항상 허용'이 필요합니다.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#4C8DFF",
+          "defaultChannel": "bus-arrival"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ]
+  }
+}
